@@ -31,10 +31,9 @@ class MainActivity : AppCompatActivity() {
             binding.greenEditText.text?.isNotEmpty()!! &&
             binding.blueEditText.text?.isNotEmpty()!!
         ) {
-
-            val redHexValue = binding.redEditText.text.toString()
-            val greenHexValue = binding.greenEditText.text.toString()
-            val blueValue = binding.blueEditText.text.toString()
+            val redHexValue = validateHexValue(binding.redEditText.text.toString())
+            val greenHexValue = validateHexValue(binding.greenEditText.text.toString())
+            val blueValue = validateHexValue(binding.blueEditText.text.toString())
 
             val hexColor = "#$redHexValue$greenHexValue$blueValue"
             binding.colorDisplayTextView.setBackgroundColor(Color.parseColor(hexColor))
@@ -43,6 +42,14 @@ class MainActivity : AppCompatActivity() {
                 this, "Please enter required value for all the color channels",
                 Toast.LENGTH_LONG
             ).show()
+        }
+    }
+
+    private fun validateHexValue(hexString: String): String {
+        return if (hexString.length == 1) {
+            hexString + hexString
+        } else {
+            hexString
         }
     }
 }
